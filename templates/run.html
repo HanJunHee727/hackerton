@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka GPT-3 App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            margin: 0;
+        }
+        .login-button {
+            background-color: #f0f8ff;
+            color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .sidebar {
+            width: 250px;
+            height: calc(100vh - 48px);
+            background-color: #f0f8ff;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            color: #007bff;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar ul li a:hover, .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .box {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #f0f8ff;
+        }
+        .scroll-box {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+        h2 {
+            color: #007bff;
+        }
+        input[type="text"], input[type="submit"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .refresh-button {
+            background-color: #f0f8ff;
+            color: #007bff;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .refresh-button:hover {
+            background-color: #ddd;
+        }
+        .header-with-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+	.dropdown-content {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">AIL System</h1>
+        <button class="login-button">로그인</button>
+    </header>
+    <div style="display: flex; height: calc(100vh - 48px);">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#">고객사</a>
+                    <div class="dropdown-content">
+                        <a href="#">검수 List</a>
+                        <a href="#">Log File Upload</a>
+                        <a href="#">History 검색</a>
+                        <a href="#">월별 검수 현황</a>
+                    </div>
+                </li>
+                <li><a href="#">환경설정</a>
+                    <div class="dropdown-content">
+                        <a href="#">AIL 가이드</a>
+                        <a href="#">계정 관리</a>
+                        <a href="#">내 프로필</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <div style="flex-grow: 1; padding: 20px;">
+            <div class="header-with-button">
+                <h2>Kafka Message:</h2>
+                <button onclick="window.location.reload();" class="refresh-button">Refresh</button>
+            </div>
+            <div class="box">
+                <div class="scroll-box">
+                    <!-- Kafka message placeholder -->
+                    {{ kafka_message|safe }}
+                </div>
+            </div>
+            <h2>User Input:</h2>
+            <div class="box">
+                <form method="post">
+                    <input type="text" name="user_input" placeholder="Ask something...">
+                    <button type="submit">Send to GPT</button>
+                </form>
+            </div>
+            <h2>GPT Response:</h2>
+            <div class="box">
+                <p><!-- GPT response placeholder -->{{ gpt_response }}</p>
+            </div>
+            <button onclick="window.location.href='/'" class="back-button">Home</button>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Topic Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            margin: 0;
+        }
+        .login-button {
+            background-color: #f0f8ff;
+            color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .sidebar {
+            width: 250px;
+            height: calc(100vh - 48px);
+            background-color: #f0f8ff;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            color: #007bff;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar ul li a:hover, .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .content form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        input[type="file"], input[type="submit"], select {
+            display: block;
+            width: 20%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        select {
+            cursor: pointer;
+        }
+        /* 추가된 스타일 */
+        .dropdown-content {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">AIL System</h1>
+        <button class="login-button">로그인</button>
+    </header>
+    <div style="display: flex; height: calc(100vh - 48px);">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#">고객사</a>
+                    <div class="dropdown-content">
+                        <a href="#">검수 List</a>
+                        <a href="#">Log File Upload</a>
+                        <a href="#">History 검색</a>
+                        <a href="#">월별 검수 현황</a>
+                    </div>
+                </li>
+                <li><a href="#">환경설정</a>
+                    <div class="dropdown-content">
+                        <a href="#">AIL 가이드</a>
+                        <a href="#">계정 관리</a>
+                        <a href="#">내 프로필</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>고객사 / Log File Upload</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <input type="submit" value="Upload">
+            </form>
+
+            <form action="/select_topic" method="post">
+                <select name="topic">
+                    <option value="OUTOFMEMORY">OUTOFMEMORY</option>
+                    <option value="STUCK">STUCK</option>
+                    <option value="MAXIMUM">MAXIMUM</option>
+                    <option value="NETWORK">NETWORK</option>
+                </select>
+                <input type="submit" value="Select Topic">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
