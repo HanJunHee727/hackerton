@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'welcome1'
 
 # GPT-3 설정
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '${GPT_API_KEY}'
 
 # 파일이 저장될 경로 설정
 UPLOAD_FOLDER = '/jhhan/hackerton/test_log'
