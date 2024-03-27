@@ -4,11 +4,14 @@ import threading
 import openai
 import os
 
+#보고서 다운로드
+from flask import send_from_directory
+
 app = Flask(__name__)
 app.secret_key = 'welcome1'
 
 # GPT-3 설정
-OPENAI_API_KEY = '${GPT_API_KEY}'
+OPENAI_API_KEY = '${OPEN_API_KEY}'
 
 # 파일이 저장될 경로 설정
 UPLOAD_FOLDER = '/jhhan/hackerton/test_log'
@@ -40,6 +43,16 @@ def kafka_consumer(topic):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+#new file download
+@app.route('/download_response')
+def download_response():
+    filename = 'gpt_response.txt'
+    # GPT 응답을 텍스트 파일로 저장
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'w') as f:
+        f.write(session.get('gpt_response', 'No response'))
+    return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=filename, as_attachment=True)
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -77,7 +90,8 @@ def ask_gpt(prompt):
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         temperature=0.5,
-        max_tokens=4097
+        max_tokens=2048
+        #max_tokens=4097
     )
     return response.choices[0].text.strip()
 
